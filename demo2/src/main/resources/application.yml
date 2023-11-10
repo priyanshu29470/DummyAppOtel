@@ -1,0 +1,35 @@
+server:
+    port: 8081
+
+# Logging
+logging:
+    file:
+        name: mylog.log
+    level:
+        root: INFO
+
+spring:
+    application:
+        name: consumer
+    kafka:
+        consumer:
+            bootstrap-servers: http://localhost:9092
+            key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+            value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+            group-id: group-1
+            auto-offset-reset: earliest
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  otlp:
+    metrics:
+      export:
+        url: http://localhost:4318/v1/metrics
+        step: 10s
+    tracing:
+      endpoint: http://localhost:4318/v1/traces
+  tracing:
+    sampling:
+      probability: 1.0
