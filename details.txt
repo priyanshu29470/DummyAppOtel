@@ -1,4 +1,5 @@
-demo app contains prodcer code and docker-compose file to create docker for all the required services(grafana, grafana-tempo, prometheus, jaeger, zipkin, 
+demo app contains prodcer code.
+docker-compose file can be used to create docker for all the required services(grafana, grafana-tempo, prometheus, jaeger, zipkin, 
 kafka, zookeeper and otel)
 demo2 app contains code for consumer.
 
