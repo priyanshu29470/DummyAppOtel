@@ -6,6 +6,9 @@ spring:
             bootstrap-servers: http://localhost:9092
             key-serializer: org.apache.kafka.common.serialization.StringSerializer
             value-serializer: org.apache.kafka.common.serialization.StringSerializer
+tracing:
+  url: http://localhost:4318/v1/traces
+
 management:
   endpoints:
     web:
@@ -21,3 +24,7 @@ management:
   tracing:
     sampling:
       probability: 1.0
+
+logging:
+  pattern:
+    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"

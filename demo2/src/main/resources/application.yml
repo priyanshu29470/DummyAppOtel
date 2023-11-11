@@ -3,21 +3,26 @@ server:
 
 # Logging
 logging:
-    file:
-        name: mylog.log
-    level:
-        root: INFO
+  file:
+      name: mylog.log
+  level:
+      root: INFO
+  pattern:
+    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
 
 spring:
-    application:
-        name: consumer
-    kafka:
-        consumer:
-            bootstrap-servers: http://localhost:9092
-            key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-            value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-            group-id: group-1
-            auto-offset-reset: earliest
+  application:
+      name: consumer
+  kafka:
+      consumer:
+          bootstrap-servers: http://localhost:9092
+          key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+          value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+          group-id: group-1
+          auto-offset-reset: earliest
+tracing:
+  url: http://localhost:4318/v1/traces
+
 management:
   endpoints:
     web:
@@ -33,3 +38,4 @@ management:
   tracing:
     sampling:
       probability: 1.0
+

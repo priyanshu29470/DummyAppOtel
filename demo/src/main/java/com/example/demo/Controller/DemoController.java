@@ -2,7 +2,9 @@ package com.example.demo.Controller;
 
 import java.util.Map;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+
 
 import com.example.demo.Service.KafkaService;
 
@@ -19,6 +22,14 @@ public class DemoController {
 
     @Autowired
     private KafkaService kafkaService;
+
+    private RestTemplate restTemplate;
+
+    public DemoController(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
+
+
     
     @GetMapping("/get")
     String getApp1(){
@@ -27,8 +38,7 @@ public class DemoController {
 
     @GetMapping("/getDataFromApp2")
     String getDataFromApp2(){
-        String uri = "http://localhost:8081/app2/get";
-        RestTemplate restTemplate = new RestTemplate();
+        String uri = "http://localhost:8081/app2/get";;
         String res = restTemplate.getForObject(uri, String.class);
         return res;
     }
