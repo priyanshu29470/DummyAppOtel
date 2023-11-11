@@ -53,6 +53,8 @@ services:
     image: grafana/grafana
     ports:
       - "3000:3000"
+    volumes:
+      - ./docker/grafana/grafana-datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml
 
   jaeger-all-in-one:
     image: jaegertracing/all-in-one:latest

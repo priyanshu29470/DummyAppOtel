@@ -27,7 +27,7 @@ public class DemoController {
 
     @GetMapping("/getDataFromApp2")
     String getDataFromApp2(){
-        String uri = "http://localhost:8081/getApp2";
+        String uri = "http://localhost:8081/app2/get";
         RestTemplate restTemplate = new RestTemplate();
         String res = restTemplate.getForObject(uri, String.class);
         return res;
