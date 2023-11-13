@@ -22,9 +22,7 @@ public class KafkaService {
                 .setSpanKind(SpanKind.PRODUCER)
                 .startSpan();
         try {
-            for(int i=0; i<25; i++){
-                this.kafkaTemplate.send("topic1",msg + i);
-            }
+            this.kafkaTemplate.send("topic1",msg);
             return true;
         } finally {
             span.end();
