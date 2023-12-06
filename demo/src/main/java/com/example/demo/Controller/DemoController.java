@@ -17,24 +17,37 @@ import org.springframework.web.client.RestTemplate;
 
 import com.example.demo.Service.KafkaService;
 
+import io.opentelemetry.api.trace.Span;
+import io.opentelemetry.api.trace.Tracer;
+import io.opentelemetry.context.Context;
+
 @RestController
 @RequestMapping("/app1")
 public class DemoController {
     private static final Logger LOGGER = LoggerFactory.getLogger(DemoController.class);
+
+    private final Tracer tracer;
 
     @Autowired
     private KafkaService kafkaService;
 
     private RestTemplate restTemplate;
 
-    public DemoController(RestTemplate restTemplate) {
+    public DemoController(RestTemplate restTemplate, Tracer tracer) {
         this.restTemplate = restTemplate;
+        this.tracer = tracer;
     }
 
 
     
     @GetMapping("/get")
     String getApp1(){
+        Context currentContext = Context.current();
+        Span currentSpan = Span.fromContext(currentContext);
+        String traceId = currentSpan.getSpanContext().getTraceId();
+        String spanId = currentSpan.getSpanContext().getSpanId();
+        LOGGER.info("Trace Id fetched:{}",traceId);
+        LOGGER.info("Span Id fetched:{}",spanId);
         return "App 1";
     }
 
